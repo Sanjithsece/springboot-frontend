@@ -1,38 +1,36 @@
 import { useState } from "react";
 import axios from "axios";
+import "./form.css";
 
 const Loginform = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  async function handleLogin(event) {
-    event.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       const res = await axios.post("https://springboot-ems-backend-1.onrender.com/api/auth/login", {
         username: userName,
         password: password,
       });
-
       console.log("Token:", res.data.token);
-      alert("Login Successful....");
-
+      alert("Login Successful");
     } catch (e) {
-      console.log("Login Error", e);
+      console.error("Login Error", e);
       alert("Invalid Credentials");
     }
-  }
+  };
 
   return (
     <div className="form-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">
-          <label htmlFor="userName">User Name</label>
+          <label htmlFor="userName">Username</label>
           <input
             id="userName"
-            name="userName"
-            value={userName}
             type="text"
+            value={userName}
             onChange={(e) => setUserName(e.target.value)}
             required
           />
@@ -42,9 +40,8 @@ const Loginform = () => {
           <label htmlFor="password">Password</label>
           <input
             id="password"
-            name="password"
-            value={password}
             type="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />

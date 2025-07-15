@@ -1,0 +1,121 @@
+/* Reset default */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f0f4ff, #dbeafe);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container styling */
+.form-container {
+  width: 100%;
+  max-width: 450px;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+}
+
+/* Heading */
+.form-container h1,
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #1e293b;
+  font-size: 26px;
+}
+
+/* Labels & Inputs */
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #374151;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #2563eb;
+  outline: none;
+  background-color: #f0f8ff;
+}
+
+/* Fieldset for roles */
+fieldset {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+legend {
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+fieldset label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #334155;
+}
+
+/* Button styling */
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s ease-in-out;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Navigation */
+nav {
+  background-color: #1f2937;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+}
+
+nav a {
+  color: #f9fafb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
