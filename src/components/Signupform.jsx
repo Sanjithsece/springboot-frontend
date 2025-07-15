@@ -57,15 +57,18 @@ const Signupform = () => {
 
         <fieldset>
           <legend>Select Roles</legend>
-          <label>
-            <input type="checkbox" value="ROLE_ADMIN" onChange={handleRoleChange} />
-            Admin
-          </label>
-          <label>
-            <input type="checkbox" value="ROLE_USER" onChange={handleRoleChange} />
-            User
-          </label>
+          <div className="role-checkbox-group">
+            <label className="role-checkbox">
+              <input type="checkbox" value="ROLE_ADMIN" onChange={handleRoleChange} />
+              Admin
+            </label>
+            <label className="role-checkbox">
+              <input type="checkbox" value="ROLE_USER" onChange={handleRoleChange} />
+              User
+            </label>
+          </div>
         </fieldset>
+
 
         <button type="submit">Signup</button>
       </form>
