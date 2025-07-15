@@ -15,19 +15,18 @@ const Loginform = () => {
 
       console.log("Token:", res.data.token);
       alert("Login Successful....");
-    
+
     } catch (e) {
       console.log("Login Error", e);
       alert("Invalid Credentials");
     }
-    console.log("Form Submitted");
   }
 
   return (
-    <div>
+    <div className="form-container">
       <h2>Login</h2>
-      <div>
-        <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin}>
+        <div className="form-group">
           <label htmlFor="userName">User Name</label>
           <input
             id="userName"
@@ -35,8 +34,11 @@ const Loginform = () => {
             value={userName}
             type="text"
             onChange={(e) => setUserName(e.target.value)}
+            required
           />
-          <br /> <br />
+        </div>
+
+        <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
             id="password"
@@ -44,12 +46,12 @@ const Loginform = () => {
             value={password}
             type="password"
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
-          <br />
-          <br />
-          <button type="submit">Login</button>
-        </form>
-      </div>
+        </div>
+
+        <button type="submit">Login</button>
+      </form>
     </div>
   );
 };
