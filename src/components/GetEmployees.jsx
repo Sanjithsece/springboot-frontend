@@ -50,7 +50,7 @@ const GetEmployees = () => {
             <div className="container mt-4">
                 <h2 className="mb-4">Employee List</h2>
                 {employees.length === 0 ? (
-                    <p>Please wait ... </p>
+                    <p>Please wait .... </p>
                 ) : (
                     <table className="table table-bordered">
                         <thead className="thead-dark">

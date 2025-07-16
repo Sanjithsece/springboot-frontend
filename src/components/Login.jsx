@@ -16,10 +16,9 @@ const Login = () => {
         password: password,
       });
 
-      // ✅ Save token, username and roles in localStorage
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("username", res.data.username);
-      localStorage.setItem("roles", JSON.stringify(res.data.roles)); // Store as stringified array
+      localStorage.setItem("roles", JSON.stringify(res.data.roles)); 
 
       alert("Login Successful");
       navigate("/getemployees");
