@@ -1,15 +1,15 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import "./form.css";
 
 const Signupform = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
-  const [roleNames, setRoleNames] = useState([]);
+  const [username, setUsername] = useState("");
+  const [rolenames, setRoleNames] = useState([]);
 
-  const handleRoleChange = (e) => {
+  const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
       setRoleNames((prev) => [...prev, value]);
@@ -21,16 +21,13 @@ const Signupform = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://springboot-ems-backend-3.onrender.com/api/auth/register",
-        {
-          name,
-          email,
-          password,
-          userName,
-          roleNames,
-        }
-      );
+      const response = await axios.post("https://springboot-ems-backend-3.onrender.com/api/auth/register", {
+        name,
+        email,
+        password,
+        username,
+        rolenames,
+      });
       console.log("Signup Success", response.data);
       alert("Signup Successful");
     } catch (error) {
@@ -40,38 +37,49 @@ const Signupform = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2>Signup</h2>
-      <form onSubmit={handleSignup}>
-        <label htmlFor="name">Employee Name</label>
-        <input id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-
-        <label htmlFor="email">Email</label>
-        <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-
-        <label htmlFor="userName">Username</label>
-        <input id="userName" value={userName} onChange={(e) => setUserName(e.target.value)} required />
-
-        <label htmlFor="password">Password</label>
-        <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-
-        <fieldset>
-          <legend>Select Roles</legend>
-          <div className="role-checkbox-group">
-            <label className="role-checkbox">
-              <input type="checkbox" value="ROLE_ADMIN" onChange={handleRoleChange} />
-              Admin
-            </label>
-            <label className="role-checkbox">
-              <input type="checkbox" value="ROLE_USER" onChange={handleRoleChange} />
-              User
-            </label>
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="card shadow p-4" style={{ maxWidth: "500px", width: "100%" }}>
+        <h2 className="text-center mb-4">Signup</h2>
+        <form onSubmit={handleSignup}>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">Employee Name</label>
+            <input type="text" id="name" className="form-control" value={name} onChange={(e) => setName(e.target.value)} required />
           </div>
-        </fieldset>
 
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">Email</label>
+            <input type="email" id="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
 
-        <button type="submit">Signup</button>
-      </form>
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label">Username</label>
+            <input type="text" id="username" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Password</label>
+            <input type="password" id="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          </div>
+
+          <fieldset className="mb-3 border p-3 rounded">
+            <legend className="fs-6">Select Roles</legend>
+            <div className="form-check">
+              <input className="form-check-input" type="checkbox" value="ROLE_ADMIN" id="adminRole" onChange={handleCheckboxChange} />
+              <label className="form-check-label" htmlFor="adminRole">Admin</label>
+            </div>
+            <div className="form-check">
+              <input className="form-check-input" type="checkbox" value="ROLE_USER" id="userRole" onChange={handleCheckboxChange} />
+              <label className="form-check-label" htmlFor="userRole">User</label>
+            </div>
+          </fieldset>
+
+          <button type="submit" className="btn btn-primary w-100">Signup</button>
+        </form>
+
+        <p className="mt-3 text-center">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </div>
     </div>
   );
 };
