@@ -1,19 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Loginform from "./components/Loginform";
-import Signupform from "./components/Signupform";
-import Empdetails from "./components/Empdetails";
-import Addemp from "./components/Addemp";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import GetEmployees from "./components/GetEmployees";
 
 function App() {
   return (
     <Router>
-      <Navbar />
       <Routes>
-        <Route path="/login" element={<Loginform />} />
-        <Route path="/signup" element={<Signupform />} />
-        <Route path= "/Employee" element={<Empdetails/>}/>
-        <Route path= "/Addemp" element={<Addemp/>}/>
+        <Route path="/" element={<Login/>} /> 
+        <Route path="/signup" element={<Signup/>} />
+        <Route path= "/getemployees" element={<GetEmployees/>}/>
+        
       </Routes>
     </Router>
   );
