@@ -57,7 +57,7 @@ const GetEmployees = () => {
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                {isAdmin && <th>Email</th>}
+                                <th>Email</th>
                                 {isAdmin && <th>Actions</th>}
                             </tr>
                         </thead>
@@ -66,7 +66,7 @@ const GetEmployees = () => {
                                 <tr key={emp.empID}>
                                     <td>{emp.empID}</td>
                                     <td>{emp.name}</td>
-                                    {isAdmin && <td>{emp.email}</td>}
+                                     <td>{emp.email}</td>
                                     {isAdmin && (
                                         <td>
                                             <button
