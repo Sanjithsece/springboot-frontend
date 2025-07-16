@@ -4,7 +4,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem("token");
   const roles = JSON.parse(localStorage.getItem("roles") || "[]");
-  const isAdmin = roles.some(role => role.includes("ADMIN")); // ✅ More flexible check
+  const isAdmin = roles.some(role => role.includes("ADMIN"));
 
   const handleLogout = () => {
     localStorage.clear();
