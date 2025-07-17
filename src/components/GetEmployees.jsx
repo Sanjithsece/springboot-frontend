@@ -20,7 +20,7 @@ const GetEmployees = () => {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await axios.get("https://springboot-ems-backend-3.onrender.com/employee", {
+                const response = await axios.get("https://springboot-ems-backend.onrender.com/employee", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -39,7 +39,7 @@ const GetEmployees = () => {
 
     const handleDelete = async (empID) => {
         try {
-            await axios.delete(`https://springboot-ems-backend-3.onrender.com/employee/${empID}`, {
+            await axios.delete(`https://springboot-ems-backend.onrender.com/employee/${empID}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -70,7 +70,7 @@ const GetEmployees = () => {
     const handleEditSubmit = async () => {
         try {
             await axios.put(
-                `https://springboot-ems-backend-3.onrender.com/employee/${editingEmployee}`,
+                `https://springboot-ems-backend.onrender.com/employee/${editingEmployee}`,
                 editedData,
                 {
                     headers: {

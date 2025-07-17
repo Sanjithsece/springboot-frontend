@@ -11,7 +11,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://springboot-ems-backend-3.onrender.com/api/auth/login", {
+      const res = await axios.post("https://springboot-ems-backend.onrender.com/api/auth/login", {
         username: userName,
         password: password,
       });
