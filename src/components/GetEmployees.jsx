@@ -4,6 +4,15 @@ import Navbar from "./Navbar";
 
 const GetEmployees = () => {
     const [employees, setEmployees] = useState([]);
+    const [editingEmployee, setEditingEmployee] = useState(null);
+    const [editedData, setEditedData] = useState({
+        name: "",
+        email: "",
+        username: "",
+        password: "",
+        rolenames: [],
+    });
+
     const token = localStorage.getItem("token");
     const roles = JSON.parse(localStorage.getItem("roles") || "[]");
     const isAdmin = roles.includes("ROLE_ADMIN");
@@ -11,7 +20,7 @@ const GetEmployees = () => {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/employee", {
+                const response = await axios.get("https://springboot-ems-backend-3.onrender.com/employee", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -30,7 +39,7 @@ const GetEmployees = () => {
 
     const handleDelete = async (empID) => {
         try {
-            await axios.delete(`http://localhost:8080/employee/${empID}`, {
+            await axios.delete(`https://springboot-ems-backend-3.onrender.com/employee/${empID}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -43,6 +52,53 @@ const GetEmployees = () => {
         }
     };
 
+    const handleEditClick = (employee) => {
+        setEditingEmployee(employee.empID);
+        setEditedData({
+            name: employee.name,
+            email: employee.email,
+            username: employee.username,
+            password: "",
+            rolenames: employee.roles?.map(role => role.roleName) || [],
+        });
+    };
+
+    const handleEditChange = (e) => {
+        setEditedData({ ...editedData, [e.target.name]: e.target.value });
+    };
+
+    const handleEditSubmit = async () => {
+        try {
+            await axios.put(
+                `https://springboot-ems-backend-3.onrender.com/employee/${editingEmployee}`,
+                editedData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            setEmployees((prev) =>
+                prev.map((emp) =>
+                    emp.empID === editingEmployee
+                        ? {
+                            ...emp,
+                            name: editedData.name,
+                            email: editedData.email,
+                            username: editedData.username,
+                        }
+                        : emp
+                )
+            );
+
+            alert("Employee updated successfully");
+            setEditingEmployee(null);
+        } catch (err) {
+            console.error("Error updating employee:", err);
+            alert("Update failed");
+        }
+    };
 
     return (
         <>
@@ -58,6 +114,7 @@ const GetEmployees = () => {
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Username</th>
                                 {isAdmin && <th>Actions</th>}
                             </tr>
                         </thead>
@@ -65,17 +122,83 @@ const GetEmployees = () => {
                             {employees.map((emp) => (
                                 <tr key={emp.empID}>
                                     <td>{emp.empID}</td>
-                                    <td>{emp.name}</td>
-                                     <td>{emp.email}</td>
+                                    <td>
+                                        {editingEmployee === emp.empID ? (
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value={editedData.name}
+                                                onChange={handleEditChange}
+                                            />
+                                        ) : (
+                                            emp.name
+                                        )}
+                                    </td>
+                                    <td>
+                                        {editingEmployee === emp.empID ? (
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                value={editedData.email}
+                                                onChange={handleEditChange}
+                                            />
+                                        ) : (
+                                            emp.email
+                                        )}
+                                    </td>
+                                    <td>
+                                        {editingEmployee === emp.empID ? (
+                                            <input
+                                                type="text"
+                                                name="username"
+                                                value={editedData.username}
+                                                onChange={handleEditChange}
+                                            />
+                                        ) : (
+                                            emp.username
+                                        )}
+                                    </td>
                                     {isAdmin && (
                                         <td>
-                                            <button
-                                                onClick={() => handleDelete(emp.empID)}
-                                                className="btn btn-danger btn-sm me-2"
-                                            >
-                                                Delete
-                                            </button>
-                                            <button className="btn btn-primary btn-sm">Edit</button>
+                                            {editingEmployee === emp.empID ? (
+                                                <>
+                                                    <input
+                                                        type="password"
+                                                        name="password"
+                                                        placeholder="New Password"
+                                                        value={editedData.password}
+                                                        onChange={handleEditChange}
+                                                        className="form-control my-1"
+                                                    />
+                                                    <button
+                                                        className="btn btn-success btn-sm me-2"
+                                                        onClick={handleEditSubmit}
+                                                    >
+                                                        Save
+                                                    </button>
+                                                    <button
+                                                        className="btn btn-secondary btn-sm"
+                                                        onClick={() => setEditingEmployee(null)}
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <button
+                                                        onClick={() => handleDelete(emp.empID)}
+                                                        className="btn btn-danger btn-sm me-2"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                    <button
+                                                        className="btn btn-primary btn-sm"
+                                                        onClick={() => handleEditClick(emp)}
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                </>
+                                            )}
                                         </td>
                                     )}
                                 </tr>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Signupform = () => {
+const Signup = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -21,7 +21,7 @@ const Signupform = () => {
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8080/api/auth/register", {
+            const response = await axios.post("https://springboot-ems-backend-3.onrender.com/api/auth/register", {
                 name,
                 email,
                 password,
@@ -84,4 +84,4 @@ const Signupform = () => {
     );
 };
 
-export default Signupform;
+export default Signup;
