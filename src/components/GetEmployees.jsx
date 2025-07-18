@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const GetEmployees = () => {
     const [employees, setEmployees] = useState([]);
@@ -24,7 +25,7 @@ const GetEmployees = () => {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/employee", {
+                const response = await axios.get(`${apiUrl}/employee`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setEmployees(response.data);
@@ -39,7 +40,7 @@ const GetEmployees = () => {
 
     const handleDelete = async (empID) => {
         try {
-            await axios.delete(`http://localhost:8080/employee/${empID}`, {
+            await axios.delete(`${apiUrl}/employee/${empID}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setEmployees(employees.filter((emp) => emp.empID !== empID));
@@ -68,7 +69,7 @@ const GetEmployees = () => {
     const handleEditSubmit = async () => {
         try {
             await axios.put(
-                `http://localhost:8080/employee/${editingEmployee}`,
+                `${apiUrl}/employee/${editingEmployee}`,
                 editedData,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -98,7 +99,7 @@ const GetEmployees = () => {
         const tasksArray = taskDescriptions.split('\n').filter(task => task.trim() !== "");
         try {
             await axios.put(
-                `http://localhost:8080/employee/assign-work/${assigningTaskToEmployeeId}`,
+                `${apiUrl}/employee/assign-work/${assigningTaskToEmployeeId}`,
                 tasksArray,
                 { headers: { Authorization: `Bearer ${token}` } }
             );

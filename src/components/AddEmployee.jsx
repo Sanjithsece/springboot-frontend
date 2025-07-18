@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const AddEmployee = () => {
   const [name, setName] = useState("");
@@ -12,7 +13,7 @@ const AddEmployee = () => {
   const handleAddEmployee = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/api/auth/register", {
+      const res = await axios.post(`${apiUrl}/api/auth/register`, {
         name,
         email,
         username,
