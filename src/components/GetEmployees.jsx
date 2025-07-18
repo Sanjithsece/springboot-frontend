@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
-const apiUrl = import.meta.env.VITE_API_URL;
 
 const GetEmployees = () => {
     const [employees, setEmployees] = useState([]);
@@ -25,7 +24,7 @@ const GetEmployees = () => {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/employee`, {
+                const response = await axios.get("https://springboot-ems-backend.onrender.com/employee", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setEmployees(response.data);
@@ -40,7 +39,7 @@ const GetEmployees = () => {
 
     const handleDelete = async (empID) => {
         try {
-            await axios.delete(`${apiUrl}/employee/${empID}`, {
+            await axios.delete(`https://springboot-ems-backend.onrender.com/employee/${empID}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setEmployees(employees.filter((emp) => emp.empID !== empID));
@@ -69,7 +68,7 @@ const GetEmployees = () => {
     const handleEditSubmit = async () => {
         try {
             await axios.put(
-                `${apiUrl}/employee/${editingEmployee}`,
+                `https://springboot-ems-backend.onrender.com/employee/${editingEmployee}`,
                 editedData,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -99,7 +98,7 @@ const GetEmployees = () => {
         const tasksArray = taskDescriptions.split('\n').filter(task => task.trim() !== "");
         try {
             await axios.put(
-                `${apiUrl}/employee/assign-work/${assigningTaskToEmployeeId}`,
+                `https://springboot-ems-backend.onrender.com/employee/assign-work/${assigningTaskToEmployeeId}`,
                 tasksArray,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
